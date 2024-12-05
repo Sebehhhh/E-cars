@@ -37,44 +37,72 @@ class Sarana extends BaseController
         $data['kategori'] = $kategoriModel->findAll(); // Ambil semua kategori
         return view('sarana/tambah', $data);
     }
-
     public function simpan()
-{
-    if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
-        // Jika tidak, redirect ke halaman login atau halaman lain
-        return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
-    }
-
-    // Ambil data dari form
-    $data = [
-        'nama'       => $this->request->getPost('nama'),
-        'kategori_id'=> $this->request->getPost('kategori_id'),
-        'deskripsi'  => $this->request->getPost('deskripsi'),
-    ];
-
-    // Aturan validasi
-    $rules = [
-        'nama'       => 'required|max_length[255]',  // Nama wajib diisi dan maksimal 255 karakter
-        'kategori_id'=> 'required|is_natural_no_zero', // Kategori ID wajib diisi dan harus angka > 0
-        'deskripsi'  => 'required|max_length[500]',  // Deskripsi wajib diisi dan maksimal 500 karakter
-    ];
-
-    // Jika validasi gagal, kembalikan ke form dengan error
-    if (! $this->validate($rules)) {
-        $kategoriModel = new KategoriModel();
-        $data['kategori'] = $kategoriModel->findAll(); // Ambil semua kategori untuk dropdown
-
-        return view('sarana/tambah', [
-            'errors' => $this->validator->getErrors(),
-            'data'   => $data, // Menjaga data inputan tetap ada di form
+    {
+        $kategoriModel = new KategoriModel(); // Model kategori
+        $data['kategori'] = $kategoriModel->findAll(); // Ambil semua data kategori untuk dropdown
+    
+        // Aturan validasi
+        $validationRules = [
+            'kategori_id' => 'required|integer',
+            'nama' => 'required|min_length[3]|max_length[100]',
+            'no_pol' => 'required|alpha_numeric|max_length[15]',
+            'kapasitas_kursi' => 'required|integer|greater_than[0]',
+            'status' => 'required|in_list[aktif,nonaktif]',
+            'keterangan' => 'permit_empty|max_length[255]'
+        ];
+    
+        // Pesan error kustom
+        $validationMessages = [
+            'kategori_id' => [
+                'required' => 'Kategori harus dipilih.',
+                'integer' => 'Kategori tidak valid.'
+            ],
+            'nama' => [
+                'required' => 'Nama sarana harus diisi.',
+                'min_length' => 'Nama sarana minimal 3 karakter.',
+                'max_length' => 'Nama sarana maksimal 100 karakter.'
+            ],
+            'no_pol' => [
+                'required' => 'Nomor Polisi harus diisi.',
+                'alpha_numeric' => 'Nomor Polisi hanya boleh berisi huruf dan angka.',
+                'max_length' => 'Nomor Polisi maksimal 15 karakter.'
+            ],
+            'kapasitas_kursi' => [
+                'required' => 'Kapasitas kursi harus diisi.',
+                'integer' => 'Kapasitas kursi harus berupa angka.',
+                'greater_than' => 'Kapasitas kursi harus lebih dari 0.'
+            ],
+            'status' => [
+                'required' => 'Status harus dipilih.',
+                'in_list' => 'Status tidak valid.'
+            ],
+            'keterangan' => [
+                'max_length' => 'Keterangan maksimal 255 karakter.'
+            ]
+        ];
+    
+        // Validasi input
+        if (!$this->validate($validationRules, $validationMessages)) {
+            $data['errors'] = $this->validator->getErrors(); // Ambil error validasi
+            return view('sarana/tambah', $data); // Kembali ke form dengan pesan error
+        }
+    
+        // Jika validasi berhasil, simpan data
+        $saranaModel = new SaranaModel(); // Model sarana
+        $saranaModel->save([
+            'kategori_id' => $this->request->getPost('kategori_id'),
+            'nama' => $this->request->getPost('nama'),
+            'no_pol' => $this->request->getPost('no_pol'),
+            'kapasitas_kursi' => $this->request->getPost('kapasitas_kursi'),
+            'status' => $this->request->getPost('status'),
+            'keterangan' => $this->request->getPost('keterangan')
         ]);
+    
+        return redirect()->to('/sarana')->with('success', 'Data sarana berhasil disimpan.'); // Redirect jika sukses
     }
-
-    // Jika validasi berhasil, simpan data sarana
-    $this->saranaModel->save($data);
-
-    return redirect()->to('/sarana')->with('success', 'Data sarana berhasil ditambahkan.');
-}
+    
+    
 
 
     public function edit($id)
