@@ -9,14 +9,10 @@ class Pengguna extends BaseController
 {
     public function index()
     {
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (!session()->get('isLoggedIn')) {
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
-            // Jika tidak, redirect ke halaman login atau halaman lain
-            return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
-        }  // Cek apakah pengguna sudah login dan memiliki role admin
         $model = new UserModel();
         $data['users'] = $model->findAll();
         return view('pengguna/index', $data);
@@ -24,7 +20,7 @@ class Pengguna extends BaseController
 
     public function tambah()
     {
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (!session()->get('isLoggedIn')) {
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }  // Cek apakah pengguna sudah login dan memiliki role admin
@@ -34,7 +30,7 @@ class Pengguna extends BaseController
     public function simpan()
     {
         // Memeriksa apakah pengguna sudah login dan memiliki role admin
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (!session()->get('isLoggedIn')) {
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }
@@ -46,7 +42,7 @@ class Pengguna extends BaseController
         $data = [
             'nrp'     => $this->request->getPost('nrp'),
             'nama'    => $this->request->getPost('nama'),
-            'role'    => $this->request->getPost('role'),
+            // 'role'    => $this->request->getPost('role'),
             'jabatan' => $this->request->getPost('jabatan'),
             'kontak'  => $this->request->getPost('kontak'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
@@ -56,7 +52,7 @@ class Pengguna extends BaseController
         $rules = [
             'nrp'     => 'required|is_unique[user.nrp]',
             'nama'    => 'required|max_length[255]',
-            'role'    => 'required|in_list[admin,user]',
+            // 'role'    => 'required|in_list[admin,karyawan]',
             'jabatan' => 'required|max_length[255]',
             'kontak'  => 'required|max_length[255]',
             'password' => 'required|min_length[6]', // Minimal panjang password
@@ -79,7 +75,7 @@ class Pengguna extends BaseController
     
     public function edit($id)
     {
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (!session()->get('isLoggedIn')) {
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }  // Cek apakah pengguna sudah login dan memiliki role admin
@@ -90,7 +86,7 @@ class Pengguna extends BaseController
     public function update($id)
     {
         // Memeriksa apakah pengguna sudah login dan memiliki role admin
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (!session()->get('isLoggedIn')) {
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }
@@ -109,7 +105,7 @@ class Pengguna extends BaseController
         $data = [
             'nrp'     => $this->request->getPost('nrp'),
             'nama'    => $this->request->getPost('nama'),
-            'role'    => $this->request->getPost('role'),
+            // 'role'    => $this->request->getPost('role'),
             'jabatan' => $this->request->getPost('jabatan'),
             'kontak'  => $this->request->getPost('kontak'),
         ];
@@ -117,7 +113,7 @@ class Pengguna extends BaseController
         $rules = [
             'nrp'     => 'required|is_unique[user.nrp,id,' . $id . ']', // Memastikan NRP unik kecuali untuk yang sedang diedit
             'nama'    => 'required|max_length[255]',
-            'role'    => 'required|in_list[admin,karyawan]',
+            // 'role'    => 'required|in_list[admin,karyawan]',
             'jabatan' => 'required|max_length[255]',
             'kontak'  => 'required|max_length[255]',
         ];
@@ -148,7 +144,7 @@ class Pengguna extends BaseController
 
     public function hapus($id)
     {
-        if (!session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (!session()->get('isLoggedIn')) {
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }  // Cek apakah pengguna sudah login dan memiliki role admin

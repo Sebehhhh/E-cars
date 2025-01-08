@@ -15,7 +15,7 @@ Penguna
                 <tr>
                     <th class="table-plus datatable-nosort">NRP</th>
                     <th>Nama</th>
-                    <th>Role</th>
+                    <!-- <th>Role</th> -->
                     <th>Jabatan</th>
                     <th>Kontak</th>
                     <th class="datatable-nosort">Aksi</th>
@@ -26,7 +26,7 @@ Penguna
                 <tr>
                     <td class="table-plus"><?= $user['nrp'] ?></td>
                     <td><?= $user['nama'] ?></td>
-                    <td><?= $user['role'] ?></td>
+                    <!-- <td><?= $user['role'] ?></td> -->
                     <td><?= $user['jabatan'] ?></td>
                     <td><?= $user['kontak'] ?></td>
                     <td>

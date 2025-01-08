@@ -45,7 +45,7 @@ Daftar Booking
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 
-                            <?php if (session()->get('role') === 'admin' && $booking['status_booking'] === 'aktif'): ?>
+                                <?php if (session()->get('role') === 'admin' && $booking['status_booking'] === 'aktif'): ?>
                                     <a class="dropdown-item" href="<?= base_url('booking/batal/' . $booking['id']) ?>" onclick="return confirm('Apakah Anda yakin ingin membatalkan booking ini?');"><i class="dw dw-delete-3"></i> Batalkan</a>
                                 <?php endif; ?>
 

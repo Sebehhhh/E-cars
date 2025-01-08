@@ -48,7 +48,7 @@
 	</style>
 </head>
 <body>
-	<div class="pre-loader">
+	<!-- <div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo"><img src="<?= base_url('assets/vendors/images/deskapp-logo.svg') ?>" alt=""></div>
 			<div class='loader-progress' id="progress_div">
@@ -59,7 +59,7 @@
 				Loading...
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- header -->
     <?= $this->include('layouts/header') ?>

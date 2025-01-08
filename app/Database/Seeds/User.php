@@ -11,21 +11,13 @@ class User extends Seeder
         // Data yang akan dimasukkan ke dalam tabel user
         $data = [
             [
-                'nrp'       => '1234567890',
+                'nrp'       => '2200220022',
                 'nama'      => 'John Doe',
                 'role'      => 'admin',
                 'jabatan'   => 'Manager',
                 'kontak'    => '081234567890',
-                'password'  => password_hash('password123', PASSWORD_DEFAULT), // Password di-hash
-            ],
-            [
-                'nrp'       => '0987654321',
-                'nama'      => 'Jane Smith',
-                'role'      => 'karyawan',
-                'jabatan'   => 'Staff',
-                'kontak'    => '082345678901',
-                'password'  => password_hash('password456', PASSWORD_DEFAULT), // Password di-hash
-            ],
+                'password'  => password_hash('password', PASSWORD_DEFAULT) // Password di-hash
+            ]
         ];
 
         // Menyimpan data ke dalam tabel user

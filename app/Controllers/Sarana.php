@@ -46,7 +46,7 @@ class Sarana extends BaseController
         $validationRules = [
             'kategori_id' => 'required|integer',
             'nama' => 'required|min_length[3]|max_length[100]',
-            'no_pol' => 'required|alpha_numeric|max_length[15]',
+            'no_pol' => 'required|max_length[15]',
             'kapasitas_kursi' => 'required|integer|greater_than[0]',
             'status' => 'required|in_list[aktif,nonaktif]',
             'keterangan' => 'permit_empty|max_length[255]'

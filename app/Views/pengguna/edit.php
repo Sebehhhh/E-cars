@@ -29,13 +29,13 @@ Edit Pengguna
                 <label for="nama">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" value="<?= $user['nama'] ?>" required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" name="role" required>
                     <option value="admin" <?= ($user['role'] == 'Admin') ? 'selected' : '' ?>>Admin</option>
                     <option value="karyawan" <?= ($user['role'] == 'Karyawan') ? 'selected' : '' ?>>Karyawan</option>
                 </select>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="jabatan">Jabatan</label>
                 <input type="text" class="form-control" id="jabatan" name="jabatan" value="<?= $user['jabatan'] ?>" required>

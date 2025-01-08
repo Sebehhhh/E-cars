@@ -19,7 +19,6 @@
 				</li>
 				
 				<!-- Menu Pengguna, Kategori Sarana, Sarana, Kursi, visible only to admin -->
-				<?php if (session()->get('role') === 'admin'): ?>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user1"></span><span class="mtext">Pengguna</span>
@@ -59,7 +58,6 @@
 							<li><a href="<?= base_url('kursi/tambah') ?>">Tambah Kursi</a></li>
 						</ul>
 					</li>
-				<?php endif; ?>
 
 				<!-- Menu Booking, visible to all users -->
 				<li class="dropdown">

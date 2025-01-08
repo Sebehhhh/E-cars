@@ -8,7 +8,7 @@ class UserModel extends Model
 {
     protected $table = 'user';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nrp', 'nama', 'role', 'jabatan', 'kontak', 'password'];
+    protected $allowedFields = ['nrp', 'nama', 'jabatan', 'kontak', 'password'];
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
