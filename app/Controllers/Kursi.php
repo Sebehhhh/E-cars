@@ -24,7 +24,8 @@ class Kursi extends BaseController
             // Jika tidak, redirect ke halaman login atau halaman lain
             return redirect()->to('/'); // Ganti '/auth/login' dengan URL login Anda
         }
-        $data['kursi'] = $this->kursiModel->findAll();
+        $data['kursi'] = $this->kursiModel->getKursiWithSarana();
+        // var_dump($data);
         return view('kursi/index', $data);
     }
 

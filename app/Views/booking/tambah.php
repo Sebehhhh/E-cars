@@ -5,6 +5,8 @@ Tambah Booking
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+
+
 <div class="card-box mb-30">
     <div class="pd-20">
         <h4 class="text-blue h4">Form Tambah Booking</h4>
@@ -24,13 +26,11 @@ Tambah Booking
                 </select>
             </div>
 
-            <!-- Kursi -->
+            <!-- Layout Kursi -->
             <div class="form-group">
-                <label for="kursi_id">Kursi</label>
-                <select name="kursi_id" id="kursi_id" class="form-control" required>
-                    <option value="" disabled selected>Pilih Kursi</option>
-                    <!-- Kursi akan dimuat secara dinamis melalui JavaScript -->
-                </select>
+                <label>Pilih Kursi</label>
+                <div id="kursi-layout" class="d-flex flex-column align-items-center"></div>
+                <input type="hidden" name="kursi_id" id="kursi_id">
             </div>
 
             <!-- Tanggal Booking -->
@@ -45,9 +45,6 @@ Tambah Booking
                 <textarea name="keterangan" id="keterangan" class="form-control" rows="3"></textarea>
             </div>
 
-            <!-- Hidden Input untuk User ID -->
-            <input type="hidden" name="user_id" value="<?= session('user_id') ?>">
-
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="<?= base_url('booking') ?>" class="btn btn-secondary">Batal</a>
@@ -56,22 +53,50 @@ Tambah Booking
     </div>
 </div>
 <script>
-    // Memuat kursi secara dinamis berdasarkan sarana yang dipilih
-    document.getElementById('sarana_id').addEventListener('change', function () {
-        const saranaId = this.value;
-        const kursiSelect = document.getElementById('kursi_id');
-        kursiSelect.innerHTML = '<option value="" disabled selected>Memuat kursi...</option>';
+    const kursiLayout = {
+        1: [1, 3, 3, 3, 4],
+        2: [1, 3, 3]
+    };
 
-        fetch(`<?= base_url('api/kursi/') ?>${saranaId}`)
+    document.getElementById('sarana_id').addEventListener('change', function () {
+        const sarana = this.value;
+        const layout = kursiLayout[sarana] || [];
+        const kursiContainer = document.getElementById('kursi-layout');
+        kursiContainer.innerHTML = '';
+
+        fetch(`<?= base_url('api/kursi/') ?>${sarana}`)
             .then(response => response.json())
             .then(data => {
-                kursiSelect.innerHTML = '<option value="" disabled selected>Pilih Kursi</option>';
-                data.forEach(kursi => {
-                    kursiSelect.innerHTML += `<option value="${kursi.id}">${kursi.nomor_kursi}</option>`;
+                let seatNumber = 1;
+                layout.forEach(rowSize => {
+                    let rowDiv = document.createElement('div');
+                    rowDiv.classList.add('d-flex', 'justify-content-center', 'mb-2');
+
+                    for (let i = 0; i < rowSize; i++) {
+                        let seat = document.createElement('button');
+                        seat.classList.add('btn', 'm-1');
+                        seat.textContent = seatNumber;
+                        seat.dataset.kursiId = seatNumber;
+
+                        let isBooked = data.some(kursi => kursi.nomor_kursi == seatNumber && kursi.status_kursi == 'terisi');
+                        if (isBooked) {
+                            seat.classList.add('btn-danger');
+                            seat.disabled = true;
+                        } else {
+                            seat.classList.add('btn-outline-primary');
+                            seat.onclick = function () {
+                                document.querySelectorAll('#kursi-layout button').forEach(btn => btn.classList.remove('btn-success'));
+                                this.classList.add('btn-success');
+                                document.getElementById('kursi_id').value = this.dataset.kursiId;
+                            };
+                        }
+                        rowDiv.appendChild(seat);
+                        seatNumber++;
+                    }
+                    kursiContainer.appendChild(rowDiv);
                 });
             });
     });
 </script>
-
 
 <?= $this->endSection() ?>

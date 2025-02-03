@@ -50,8 +50,11 @@ $routes->get('/booking', 'Booking::index');
 $routes->get('/booking/tambah', 'Booking::tambah');
 $routes->post('/booking/simpan', 'Booking::simpan');
 $routes->get('api/kursi/(:num)', 'Booking::getKursi/$1');
-$routes->get('booking/batal/(:num)', 'Booking::batal/$1');
-$routes->get('booking/selesai/(:num)', 'Booking::selesai/$1');
+// $routes->get('booking/batal/(:num)', 'Booking::batal/$1');
+// $routes->get('booking/selesai/(:num)', 'Booking::selesai/$1');
+$routes->get('booking/batal/(:num)/(:num)', 'Booking::batal/$1/$2');
+$routes->get('booking/selesai/(:num)/(:num)', 'Booking::selesai/$1/$2');
+
 
 
 

@@ -28,7 +28,7 @@ Data Kursi
                     <td class="table-plus"><?= $item['id'] ?></td>
                     <td><?= $item['nomor_kursi'] ?></td>
                     <td><?= $item['status_kursi'] ?></td>
-                    <td><?= $item['sarana_id'] ?></td>
+                    <td><?= $item['nama_sarana'] ?></td>
                     <td>
                         <div class="dropdown">
                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

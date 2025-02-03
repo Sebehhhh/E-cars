@@ -51,4 +51,11 @@ class KursiModel extends Model
                 ->where('status', 'kosong')
                 ->findAll();
 }
+
+public function getKursiWithSarana()
+    {
+        return $this->select('kursi.*, sarana.nama as nama_sarana')
+                    ->join('sarana', 'sarana.id = kursi.sarana_id', 'left')
+                    ->findAll();
+    }
 }

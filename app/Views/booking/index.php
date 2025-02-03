@@ -46,12 +46,19 @@ Daftar Booking
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 
                                 <?php if (session()->get('role') === 'admin' && $booking['status_booking'] === 'aktif'): ?>
-                                    <a class="dropdown-item" href="<?= base_url('booking/batal/' . $booking['id']) ?>" onclick="return confirm('Apakah Anda yakin ingin membatalkan booking ini?');"><i class="dw dw-delete-3"></i> Batalkan</a>
+                                    <a class="dropdown-item" href="<?= base_url('booking/batal/' . $booking['id'] . '/' . $booking['sarana_id']) ?>" 
+   onclick="return confirm('Apakah Anda yakin ingin membatalkan booking ini?');">
+   <i class="dw dw-delete-3"></i> Batalkan
+</a>
+
                                 <?php endif; ?>
 
                                 <!-- Tombol untuk menandai selesai booking hanya jika user adalah admin -->
                                 <?php if (session()->get('role') === 'admin' && $booking['status_booking'] === 'aktif'): ?>
-                                    <a class="dropdown-item" href="<?= base_url('booking/selesai/' . $booking['id']) ?>" onclick="return confirm('Apakah Anda yakin ingin menandai booking ini sebagai selesai?');"><i class="dw dw-check"></i> Tandai Selesai</a>
+                                    <a class="dropdown-item" href="<?= base_url('booking/selesai/' . $booking['id'] . '/' . $booking['sarana_id']) ?>" 
+   onclick="return confirm('Apakah Anda yakin ingin menandai booking ini sebagai selesai?');">
+   <i class="dw dw-check"></i> Tandai Selesai
+</a>
                                 <?php endif; ?>
                             </div>
                         </div>
