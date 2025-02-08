@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
@@ -24,18 +25,22 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'UA-119386393-1');
     </script>
 </head>
+
 <body class="login-page">
     <div class="login-header box-shadow">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="brand-logo">
                 <a href="<?= base_url('auth/login'); ?>">
-                    <img src="<?= base_url('assets/vendors/images/deskapp-logo.svg'); ?>" alt="">
+                    <img src="<?= base_url('assets/vendors/images/logo_pama.png'); ?> " style="width: 50px; height: auto;" alt="">
                 </a>
             </div>
             <div class="login-menu">
@@ -49,19 +54,19 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 col-lg-7">
-                    <img src="<?= base_url('assets/vendors/images/login-page-img.png'); ?>" alt="">
+                    <img src="<?= base_url('assets/vendors/images/login-page-img.png'); ?> " alt="">
                 </div>
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h2 class="text-center text-primary">Login To DeskApp</h2>
+                            <h2 class="text-center text-primary">Login</h2>
                         </div>
 
                         <?php if (session()->getFlashdata('msg')): ?>
-    <div class="alert alert-danger text-center">
-        <?= session()->getFlashdata('msg') ?>
-    </div>
-<?php endif; ?>
+                            <div class="alert alert-danger text-center">
+                                <?= session()->getFlashdata('msg') ?>
+                            </div>
+                        <?php endif; ?>
                         <form action="<?= base_url('auth/loginSubmit'); ?>" method="post">
                             <div class="input-group custom">
                                 <input type="text" name="nrp" class="form-control form-control-lg" placeholder="Username" required>
@@ -76,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="row">
-							<div class="col-sm-12">
+                                <div class="col-sm-12">
                                     <div class="input-group mb-0">
                                         <button class="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
                                     </div>
@@ -94,4 +99,5 @@
     <script src="<?= base_url('assets/vendors/scripts/process.js'); ?>"></script>
     <script src="<?= base_url('assets/vendors/scripts/layout-settings.js'); ?>"></script>
 </body>
+
 </html>
